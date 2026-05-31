@@ -234,7 +234,8 @@ export async function updateSubscriptionPlan(
   newPriceId: string
 ) {
   try {
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+        const subscription = await (stripe.subscriptions as any).del(subscriptionId);
+
 
     const updatedSubscription = await stripe.subscriptions.update(
       subscriptionId,
