@@ -192,12 +192,13 @@ export async function getSubscriptionStatus(subscriptionId: string) {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
     return {
-      id: subscription.id,
+            id: subscription.id,
       status: subscription.status,
-      current_period_start: new Date(subscription.current_period_start * 1000),
-      current_period_end: new Date(subscription.current_period_end * 1000),
-      trial_end: subscription.trial_end
-        ? new Date(subscription.trial_end * 1000)
+      current_period_start: new Date((subscription as any).current_period_start * 1000),
+      current_period_end: new Date((subscription as any).current_period_end * 1000),
+      trial_end: (subscription as any).trial_end
+        ? new Date((subscription as any).trial_end * 1000)
+
         : null,
       items: subscription.items.data.map((item) => ({
         price_id: item.price.id,
