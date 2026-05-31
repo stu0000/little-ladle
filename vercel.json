@@ -44,11 +44,6 @@
       "destination": "https://nourishu.vercel.app/:path*",
       "permanent": true
     }
-  ],
-  "functions": {
-    "api/**/*.ts": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 }
+
