@@ -217,7 +217,10 @@ export async function getSubscriptionStatus(subscriptionId: string) {
  */
 export async function cancelSubscription(subscriptionId: string) {
   try {
-    const subscription = await stripe.subscriptions.del(subscriptionId);
+    // Use update with cancel_at_period_end instead of del
+    const subscription = await stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: true,
+    });
 
     return subscription;
   } catch (error) {
@@ -225,6 +228,7 @@ export async function cancelSubscription(subscriptionId: string) {
     throw error;
   }
 }
+
 
 /**
  * Update subscription plan (e.g., annual to monthly or vice versa)
